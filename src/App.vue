@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import GameAlternatives from './components/GameAlternatives.vue';
+import GameAlternatives from './components/GameAlternatives.vue'; 
 import GameScore from './components/GameScore.vue';
 import GameResult from './components/GameResult.vue';
 import GameStats from './components/GameStats.vue';
@@ -12,16 +12,16 @@ import GameStats from './components/GameStats.vue';
   const round = ref(0)
   const itemWins = ref({scissors: 0, paper: 0, rock: 0})
   
-function setWinnerInfo (_winner) {
-  winner.value=_winner
+function setWinnerInfo (_winner) { //funktion som uppdaterar vinnaren
+  winner.value=_winner //uppdatera vinnare
   round.value++
-  if (_winner === 'draw') {
-   winnerInfo.value="oavgjort!"
+  if (_winner === 'draw') { //om det blir oavgjort
+   winnerInfo.value="oavgjort!" //visa meddelande
   
-  } else if ( _winner === 'user') {
-    winnerInfo.value= "du vann! (fusk?)"
+  } else if ( _winner === 'user') { //om användare vinnare 
+    winnerInfo.value= "du vann! (fusk?)" //visa meddelande 
   } else {
-    winnerInfo.value="datorn vann! (L)"
+    winnerInfo.value="datorn vann! (L)" //annars visa dator vann meddelande 
   }
 }
   function setUserAlternative(alt) {

@@ -1,15 +1,15 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue';
+import { defineProps, ref, watch } from 'vue'; //importerar funktioner från vue
 
-const prop=defineProps(['result'])
-const userScore=ref(0)
-const computerScore=ref(0)
+const prop = defineProps(['result'])  // Definiera egenskapen 'result'.
+const userScore = ref(0) //Skapa en referens för användarens poäng. 
+const computerScore = ref(0)  //Skapa en referens för datorns poäng.
 
-watch (prop,() =>{
-    if (prop.result.winner === 'user') {
-        userScore.value++
-    } else if (prop.result.winner === 'computer') {
-        computerScore.value++
+watch (prop,() =>{ // håller koll på ändringar i 'result'
+    if (prop.result.winner === 'user') { //om användaren vinner
+        userScore.value++//öka användarens poäng med 1
+    } else if (prop.result.winner === 'computer') { //om datorn vinner
+        computerScore.value++ //öka datorns poäng med 1
     }
 })
 

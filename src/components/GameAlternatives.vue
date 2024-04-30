@@ -1,48 +1,48 @@
 <script setup>
 import { ref } from 'vue'
-const emit = defineEmits(['user-choice', 'computer-choice', 'winner', 'win-item'])
-const alternatives = ref(['scissors', 'paper', 'rock',])
+const emit = defineEmits(['user-choice', 'computer-choice', 'winner', 'win-item']) // Definiera 'emit' för att sända händelser.
+const alternatives = ref(['scissors', 'paper', 'rock',]) // skapar listan med alternativen
 
-
-function alternativeChosen(e) {
+//
+function alternativeChosen(e) { //funktion för vald symbol
     let buttons = document.getElementsByClassName('button')
     for (let b of buttons) {
         b.classList.remove('vald')
     }
-    let alternative = e.target.id
-    e.target.classList.add('vald')
-    emit('user-choice', alternative)
-    computerAction()
+    let alternative = e.target.id //hämtar ID på den valda symbolen
+    e.target.classList.add('vald')// sätter klassen "vald" på symbol som klickats på
+    emit('user-choice', alternative)//skickar ut användarens val
+    computerAction()//anropar funktionen för att få dators val
 }
 
-function computerAction() {
-    let compAlternative = alternatives.value[Math.floor(Math.random() * alternatives.value.length)]
-    let buttons = document.getElementsByClassName('button')
+function computerAction() { // har datorn att välja symbol
+    let compAlternative = alternatives.value[Math.floor(Math.random() * alternatives.value.length)] // väljer slumpmässigt ett val för dator
+    let buttons = document.getElementsByClassName('button') 
     for (let b of buttons) {
         b.classList.remove('computerChoice')
     }
-    document.getElementById(compAlternative).classList.add('computerChoice')
+    document.getElementById(compAlternative).classList.add('computerChoice')// ger det som datorn valt klassen "computerChoice"
     emit('computer-choice', compAlternative)
-    determineWinner()
+    determineWinner()//anropar funktion för att räkna ut vem som vann
 }
-function determineWinner() {
-    let userButton, computerButton
+function determineWinner() { //funktion för att avgöra vinnare
+    let userButton, computerButton 
     let buttons = document.getElementsByClassName('button')
     for (let b of buttons) {
         if (b.classList.contains('vald')) {
-            userButton = b.id
+            userButton = b.id // om knappen är vald sparas ID för användarens valda knapp
         }
         if (b.classList.contains('computerChoice')) {
-            computerButton = b.id
+            computerButton = b.id// om knappen är vald sparas ID för datorns valda knapp
         }
     }
     let computerIndex = alternatives.value.indexOf(computerButton)
     let userIndex = alternatives.value.indexOf(userButton)
-    if (computerButton === userButton) {
-        emit('winner', 'draw')
+    if (computerButton === userButton) { //om dator och användare väljer samma 
+        emit('winner', 'draw') // visa oavgjorthändelse
     } else if (computerIndex % 2 === userIndex % 2) {
-        emit('winner', computerIndex > userIndex ? 'computer' : 'user')
-        emit('win-item', computerIndex > userIndex ? computerButton : userButton)
+        emit('winner', computerIndex > userIndex ? 'computer' : 'user')//visar vem som vann
+        emit('win-item', computerIndex > userIndex ? computerButton : userButton) // visar vilket "objekt som vann, tex sax."
     } else {
         emit('winner', computerIndex < userIndex ? 'computer' : 'user')
         emit('win-item', computerIndex < userIndex ? computerButton : userButton)
@@ -53,9 +53,9 @@ function determineWinner() {
 
 <template>
 
-    <ul>
-        <li v-for="alt of alternatives" @click="alternativeChosen" :key="alt" :id="alt" class="button">
-            <img :src="`src/assets/${alt}.png`" style="height: 2rem;" class="ignore" />
+    <ul> <!-- Lista för att visa alternativen. -->
+        <li v-for="alt of alternatives" @click="alternativeChosen" :key="alt" :id="alt" class="button"> <!-- Skapar  knapp för varje alternativ. -->
+            <img :src="`src/assets/${alt}.png`" style="height: 2rem;" class="ignore" /> <!-- Visar bild för varje alternativ. -->
         </li>
     </ul>
 </template>
