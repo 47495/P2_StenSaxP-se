@@ -55,7 +55,7 @@ function determineWinner() { //funktion för att avgöra vinnare
 
     <ul> <!-- Lista för att visa alternativen. -->
         <li v-for="alt of alternatives" @click="alternativeChosen" :key="alt" :id="alt" class="button"> <!-- Skapar  knapp för varje alternativ. -->
-            <img :src="`src/assets/${alt}.png`" style="height: 2rem;" class="ignore" /> <!-- Visar bild för varje alternativ. -->
+            <img :src="`./img/${alt}.png`" style="height: 2rem;" class="ignore" /> <!-- Visar bild för varje alternativ. -->
         </li>
     </ul>
 </template>
